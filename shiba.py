@@ -45,7 +45,7 @@ def hourly_shib():
 
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
-    scheduler.add_job(temp, 'interval', hours=1)
+    scheduler.add_job(hourly_shib, 'interval', hours=1)
     scheduler.start()
 
     print("started job")
