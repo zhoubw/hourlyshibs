@@ -1,8 +1,8 @@
-import tweepy
+import tweepy # pip
 from tweepy import OAuthHandler
-import requests
+import requests # pip
 import os
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler # pip
 import random
 
 # consumer key
