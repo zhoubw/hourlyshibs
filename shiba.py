@@ -14,21 +14,6 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 
-#shib = requests.get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true")
-#print (shib.json()[0])
-#status = api.update_with_media(status="Hourly shiba: test run", )
-
-
-"""
-raw_shib = requests.get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true")
-shib = get_shiba(raw_shib)
-status = api.update_with_media(filename=shib,
-                               status="Hourly shiba: test run")
-
-print(shib)
-print(status)
-"""
-
 def get_shiba(obj):
     return obj.json()[0]
 
