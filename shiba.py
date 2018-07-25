@@ -2,6 +2,8 @@ import tweepy
 from tweepy import OAuthHandler
 import requests
 import os
+from apscheduler.schedulers.blocking import BlockingScheduler
+import random
 
 # consumer key
 API_KEY = "4jHYLlPZiVG1GIJgtlMLo0zhb"
@@ -14,7 +16,7 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 
-def get_shiba(obj):
+def get_shiba_from_raw(obj):
     return obj.json()[0]
 
 def tweet_image(url, message):
@@ -31,7 +33,25 @@ def tweet_image(url, message):
     else:
         print("Unable to download image")
 
-raw_shib = requests.get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true")
-shib = get_shiba(raw_shib)
-msg = "Hourly shiba: test run"
-tweet_image(shib, msg)
+labels = ["shib", "woofer", "subwoofer", "doggo", "doge", "shibro", "shiboi"]
+secure_random = random.SystemRandom()
+def hourly_shib():
+    raw_shib = requests.get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true")
+    shib = get_shiba_from_raw(raw_shib)
+    msg = secure_random.choice(labels)
+    tweet_image(shib, msg)
+    print(shib)
+
+
+if __name__ == '__main__':
+    scheduler = BlockingScheduler()
+    scheduler.add_job(temp, 'interval', hours=1)
+    scheduler.start()
+
+    print("started job")
+
+    try:
+        while True:
+            time.sleep(5)
+    except (KeyboardInterrupt, SystemExit):
+        scheduler.shutdown()
